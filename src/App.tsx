@@ -39,13 +39,48 @@ function TileCounter(props: TileCounterProps) {
 
   return (
     <div
-      className="flex flex-col gap-1 items-center hover:bg-[#d3e3fd] p-1 cursor-pointer"
+      className={`
+        relative p-2 rounded-md shadow-sm cursor-pointer select-none aspect-square
+        flex flex-col gap-1 items-center 
+        transition-all duration-300
+        ${
+          count === 0
+            ? "opacity-60 grayscale bg-gray-300 hover:bg-gray-300"
+            : "bg-white hover:bg-blue-50 hover:shadow-md"
+        }
+      `}
       onClick={decrease}
     >
-      <div className="w-16 h-16">
-        <Tile className="h-full w-full" {...restProps} />
+      <Tile className="h-full w-full" {...restProps} />
+      <div
+        className="absolute -top-0 -right-0 w-7 h-7 flex items-center justify-center rounded-full leading-none bg-blue-500 bg-opacity-80 text-white font-semibold text-lg"
+        style={{
+          fontFamily: "Russo One",
+          borderTop: "1px solid rgba(255, 255, 255, 0.5)",
+          borderLeft: "1px solid rgba(255, 255, 255, 0.5)",
+          textShadow:
+            "2px 2px 4px rgba(0, 0, 0, 0.5), 0px 0px 10px rgba(255, 255, 255, 0.7)",
+        }}
+      >
+        {count ? (
+          count
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+        )}
       </div>
-      {count}
     </div>
   );
 }
@@ -56,13 +91,24 @@ function App() {
   const reset = () => setId(id + 1);
 
   return (
-    <div className="p-2 flex flex-col items-stretch gap-2">
-      <div>
-        <button className="" onClick={reset}>
-          重 置
+    <div className="bg-gradient-to-br fixed w-full h-full from-gray-100 to-gray-200 p-2 flex flex-col items-stretch gap-2">
+      <div className="text-center">
+        <button
+          onClick={reset}
+          className="
+              bg-green-500 text-white px-2 py-1 rounded-md 
+              hover:bg-green-600 transition duration-300
+              shadow-md hover:shadow-lg
+            "
+        >
+          重置所有卡牌
         </button>
       </div>
-      <div className="flex flex-wrap gap-1" key={id}>
+      <div
+        key={id}
+        className="grid gap-2 col justify-around"
+        style={{ gridTemplateColumns: "repeat(auto-fill, 100px)" }}
+      >
         <TileCounter initialCount={2} row={5} col={2} />
         <TileCounter initialCount={4} row={5} col={1} />
         <TileCounter initialCount={1} row={5} col={4} />
