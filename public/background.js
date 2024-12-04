@@ -3,6 +3,6 @@ chrome.action.onClicked.addListener((tab) => {
     url: "index.html",
     type: "popup",
     width: 750,
-    height: 500,
+    height: 525,
   });
 });
