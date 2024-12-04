@@ -5,7 +5,7 @@
   "description": "A simple counter Chrome extension",
   "permissions": ["storage"],
   "action": {
-    "default_icon": "logo512.png"
+    "default_icon": "icon.png"
   },
   "background": {
     "service_worker": "background.js"
